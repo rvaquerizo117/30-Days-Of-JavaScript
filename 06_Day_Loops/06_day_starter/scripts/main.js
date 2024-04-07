@@ -237,7 +237,7 @@ console.log(numerosAle)
 //     5j2khz
 //     ```
 
-const alfabeto = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let alfabeto = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let key = "";
 
 for(let i = 0; i < 6; i++){
@@ -261,7 +261,7 @@ console.log(key)
 //      xkqci4utda1lmbelpkm03rba
 //    ```
 
-longitudRam = Math.floor(Math.random() * (6)) + 1;
+longitudRam = Math.floor(Math.random() * (20 - 5 + 1)) + 20;
 console.log(longitudRam)
 //alfabeto = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 key = "";
@@ -282,10 +282,10 @@ console.log(key)
 //    '#ee33df'
 //    ```
 
-longitudRam = Math.floor(Math.random() * (20 - 5 + 1)) + 20;
+longitudRam = 6;
 console.log(longitudRam)
-//alfabeto = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-key = "";
+alfabeto = "0123456789ABCDEF"
+key = ""
 
 
 for(let i = 0; i < longitudRam; i++){
@@ -295,7 +295,7 @@ for(let i = 0; i < longitudRam; i++){
     key += char
 }
 
-console.log(key)
+console.log("#" + key)
 
 
 // 1. Escribe un script que genere un número de color rgb aleatorio.
@@ -304,17 +304,55 @@ console.log(key)
 //    rgb(240,180,80)
 //    ```
 
+let rgb = [null,null,null];
+
+i=0
+while(i < rgb.length){
+    rgb[i] = Math.floor(Math.random() * (256) )
+    i++
+}
+
+console.log("rgb("+ rgb.toString()+")")
+
+
 // 1. Usando el array countries anterior, crea un array como el siguiente.
 
 //    ```sh
 //    ["ALBANIA", "BOLIVIA", "CANADA", "DENMARK", "ETHIOPIA", "FINLAND", "GERMANY", "HUNGARY", "IRELAND", "JAPAN", "KENYA"]
 //    ```
 
+let abcPaises = []
+
+for(let i = 0; i < countries.length; i++){
+    //si la primera letra del ultimo registro es igual a la primera letra del siguiente registro
+    let siguienteLetra = countries[i].charAt(0)
+
+if(abcPaises.length > 0 ){
+    let ultimaLetra = abcPaises[abcPaises.length-1].charAt(0)
+    if(siguienteLetra !== ultimaLetra){
+        abcPaises.push(countries[i].toLocaleUpperCase())
+    }
+}else{
+    //Establecer primer elemento del array abcpaises
+    abcPaises.push(countries[i].toLocaleUpperCase())
+}
+}
+
+console.log(abcPaises.toString())
+
 // 1. Usando el array countries anterior, crea un array para saber la longitud de cada país.
 
 //    ```sh
 //    [7, 7, 6, 7, 8, 7, 7, 7, 7, 5, 5]
 //    ```
+
+lengthPaises = [];
+
+for(let i = 0; i < abcPaises.length; i++){
+    lengthPaises.push(abcPaises[i].length)
+}
+
+console.log(lengthPaises.toString())
 
 // 1. Utiliza el array countries para crear la siguiente array de arrays
 
@@ -335,17 +373,67 @@ console.log(key)
 //    ]
 //    ```
 
+arrPaises = [];
+
+for(let i = 0; i < abcPaises.length; i++){
+    arrPaises.push([abcPaises[i], abcPaises[i].slice(0,3).toUpperCase(),abcPaises[i].length]);
+}
+
+let json = JSON.stringify(arrPaises)
+
+console.log(json)
+
 // 1. En el array countries anterior, verifica si hay un país que contenga la palabra 'land'. Si hay países que contienen 'land', imprimelo cono array. Si no hay ningún país que contenga la palabra'land', imprima 'Todos estos países no tienen la palabra land'.
 
 //    ```sh
 //    ['Finland','Ireland', 'Iceland']
 //    ```
 
-// 1. En el array countries anterior, verifica si hay un país que termina con una subcadena (substring) 'ia'. Si hay países que terminan con 'ia', imprimelo como un array. Si no hay ningún país que contenga la palabra 'ia', imprime 'Estos países no terminan con ia'.
+//variable cadena buscar
+let buscar = "land";
+
+//array match
+arrPaisesMatch = [];
+
+//array nomatch
+arrPaisesNoMatch = [];
+
+//recorrer array countries
+for(let i = 0; i < countries.length; i++){
+    if(countries[i].indexOf(buscar) !== -1){
+        arrPaisesMatch.push(countries[i])
+    }else{
+        arrPaisesNoMatch.push(countries[i])
+    }
+}
+console.log("Match:"+ arrPaisesMatch.toString(),"\n","No match:"+arrPaisesNoMatch.toString())
+
+// 1. En el array countries anterior, verifica si hay un país que termina con una subcadena (substring) 'ia'. 
+//Si hay países que terminan con 'ia', imprimelo como un array. Si no hay ningún país que contenga la palabra 'ia', 
+//imprime 'Estos países no terminan con ia'.
 
 //    ```sh
 //    ['Albania', 'Bolivia','Ethiopia']
 //    ```
+
+//variable cadena buscar
+buscar = "ia";
+
+//array match
+arrPaisesMatch = [];
+
+//array nomatch
+arrPaisesNoMatch = [];
+
+//recorrer array countries
+for(let i = 0; i < countries.length; i++){
+    if(countries[i].indexOf(buscar) !== -1){
+        arrPaisesMatch.push(countries[i])
+    }else{
+        arrPaisesNoMatch.push(countries[i])
+    }
+}
+console.log("Match:"+ arrPaisesMatch.toString(),"\n","No match:"+arrPaisesNoMatch.toString())
 
 // 1. Usando el array countries anterior, encuentre el país que contiene la mayor cantidad de caracteres.
 
@@ -353,13 +441,47 @@ console.log(key)
 //    Ethiopia
 //    ```
 
+let paisMinLength = Infinity;
+let paisMaxLength = 0
+let indicePaisMinLength = 0;
+let IndicePaisMaxLength = 0
+
+for(let i = 0; i < countries.length; i++){
+
+    if(countries[i].length > paisMaxLength ){
+        IndicePaisMaxLength = i
+        paisMaxLength = countries[i].length
+    }else if(countries[i].length < paisMinLength){
+        indicePaisMinLength = i
+        paisMinLength = countries[i].length
+    }
+}
+
+console.log(`
+    - Mas corto: "${countries[indicePaisMinLength]}" con ${paisMinLength} caracteres.
+    - Mas largo: "${countries[IndicePaisMaxLength]}" con ${paisMaxLength} caracteres.
+`)
+
 // 1. Usando el array countries anterior, encuentre el país que contiene sólo 5 caracteres.
 
 //    ```sh
 //    ['Japan', 'Kenya']
 //    ```
 
+const nCaracteres = 5
+let arrCaracteres = []
+
+for(let i = 0; i < countries.length; i++){
+    if(countries[i].length === 5){
+        arrCaracteres.push(countries[i])
+    }
+}
+
+console.log(arrCaracteres.toString());
+
+
 // 1. Encuentra la palabra más larga en el array webTechs
+
 // 1. Utiliza el array de webTechs para crear la el siguiente array de arrays:
 
 //    ```sh
@@ -391,14 +513,78 @@ console.log(key)
 // ### Ejercicios: Nivel 3
 
 // 1. Copia el array countries (Evita mutaciones)
-// 1. Los arrays son mutables. Crea una copia del array que no modifique el original. Ordena la copia del array y guárdala en una variable sortedCountries
+
+let arrNuevoCountries = Array.from(countries)
+
+// 1. Los arrays son mutables. Crea una copia del array que no modifique el original. 
+//Ordena la copia del array y guárdala en una variable sortedCountries
+
+const sortedCountries = Array.from(countries.sort())
+
+console.log(sortedCountries.toString())
+
 // 1. Ordena el array webTechs y el array mernStack
 // 1. Extrae todos los países que contengan la palabra 'land' del [array countries](https://github.com/Asabeneh/30DaysOfJavaScript/tree/master/data/countries.js) e imprimela como un array
+
+
+//variable cadena buscar
+buscar = "land";
+
+arrPaisesPos = [];
+
+arrPaisesLand = [];
+
+//recorrer array countries
+for(let i = 0; i < arrNuevoCountries.length; i++){
+    if(arrNuevoCountries[i].indexOf(buscar) !== -1){
+        //codigo para extraer el elemento de countries e insertarlo en arrPaisesLand
+        let elementoExtraido = arrNuevoCountries.splice(i,1)[0]
+        arrPaisesLand.unshift(elementoExtraido)
+    }
+}
+console.log("Array Land:"+ arrPaisesLand.toString(),"\n","Array original:"+arrNuevoCountries.toString())
+
+
 // 1. Encuentra el país que contiene la mayor cantidad de caracteres en el [array countries](https://github.com/Asabeneh/30DaysOfJavaScript/tree/master/data/countries.js)
 // 1. Extrae todos los países que contienen la palabra 'land' del [array countries](https://github.com/Asabeneh/30DaysOfJavaScript/tree/master/data/countries.js) e imprimela como un array
 // 1. Extrae todos los países que contengan solo cuatro caracters del [array countries](https://github.com/Asabeneh/30DaysOfJavaScript/tree/master/data/countries.js) e impremela como un array
+
+let arr4char = []
+for(let i = 0; i < arrNuevoCountries.length; i++){
+
+    //si arrNuevoCountries tiene 4 caracteres
+    if(arrNuevoCountries[i].length === 4){
+        //splice del elemento
+        let elemento = arrNuevoCountries.splice(i,1)[0]
+        //pop al nuevo arr4char
+        arr4char.push(elemento)
+    }
+}
+
+console.log(arr4char.toString())
+
+
 // 1. Extrae todos los paíse que contengan dos o más palabras del [array countries](https://github.com/Asabeneh/30DaysOfJavaScript/tree/master/data/countries.js) e imprimela como un array
+
+
+arr4char = []
+for(let i = 0; i < arrNuevoCountries.length; i++){
+
+    //si arrNuevoCountries tiene 4 caracteres
+    if(arrNuevoCountries[i].length > 1){
+        //splice del elemento
+        let elemento = arrNuevoCountries.splice(i,1)[0]
+        //pop al nuevo arr4char
+        arr4char.push(elemento)
+    }
+}
+
+console.log(arr4char.toString())
+
 // 1. Invertir el [array countries](https://github.com/Asabeneh/30DaysOfJavaScript/tree/master/data/countries.js) y poner en mayúscula cada país y almacenalo en un array
+
+let arrInvertido = [...abcPaises].reverse()
+console.log(arrInvertido.toString())
 
 // 🎉 ¡FELICITACIONES! 🎉
 
